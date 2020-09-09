@@ -1,0 +1,56 @@
+<!-- 뷰 라우터는 페이지를 이동할 때 사용하는 
+    뷰 공식 라이브러리이자 기능. 페이지 이동과 관련된
+    기능을 뷰 라우터로 구현할 수 있다. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <router-link to="/login">Login</router-link>
+            <router-link to="/main">Main</router-link>
+        </div>
+        <router-view></router-view>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <script>
+        var LoginComponent = {
+            template: '<div>login</div>'
+        }
+        var MainComponent = {
+            template: '<div>main</div>'
+        }
+
+        var router = new VueRouter({
+        // 페이지의 라우팅 정보(어떤 url로 이동했을 때 
+        // 어떤 페이지가 표시?될지에 대한 정보가 배열로 담김)
+            mode: 'history', // # 안 붙여도 되게 하는 기능
+            routes: [
+            // 로그인 페이지 정보
+                {
+                // 페이지의 url
+                    path: '/login',
+                // 해당 url에서 표시될 컴포넌트
+                    component: LoginComponent
+                },
+            // 메인 페이지 정보
+                {
+                    path: '/main',
+                    component: MainComponent
+                }
+            ]
+        });
+
+        new Vue({
+            el: '#app',
+            router: router
+        });
+    </script>
+</body>
+</html>
