@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p>
+            {{ a }}
+        </p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        var data = { a:1 }
+
+        new Vue({
+            el:'#app',
+            data: data,
+            watch: {
+                a: function() {
+                    // mounted 이후에 원하는 data를 옵저버 형태로 감시할 수 있다.
+                    console.log('watch: ' + this.a);
+                }
+            },
+            beforeCreate: function() {
+                // Vue 인스턴스가 생성되기 전에 호출
+                console.log('beforeCreate: ' + this.a);
+            },
+            created: function() {
+                // Vue 인스턴스가 생성된 후에 호출
+                console.log('created: ' + this.a);
+            },
+            beforeMount: function() {
+                // Vue 인스턴스가 생성되기 전에 호출
+                console.log('beforeMount: ' + this.a);
+            },
+            mounted: function() {
+                // created 혹은 Vue 인스턴스가 생성된 후에 호출
+                console.log('mounted: ' + this.a);
+                this.$nextTick(function() {
+                    // 모든 화면이 렌더링된 후에 실행
+                    this.a = 3
+                    console.log('mounted: ' + this.a);
+                })
+            },
+            beforeUpdate: function() {
+                // Vue 인스턴스가 생성되기 전에 호출
+                console.log('beforeMount: ' + this.a);
+            }
+        })
+    </script>
+</body>
+</html>
